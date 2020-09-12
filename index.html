@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <script src="https://unpkg.com/vue@next"></script>
+    <title>GolemClick</title>
+  </head>
+  <body>
+    <div id="clicker">
+      <p> Magic: {{ magic }} </p>
+      <button v-on:click="magicClick">Raise Power</button>
+    </div>
+
+  </body>
+  <script type="text/javascript">
+    const Clicker = {
+      data() {
+        return {
+          magic: 0
+        }
+      },
+      mounted() {
+        this.magic = 0
+      },
+      methods: {
+        magicClick() {
+          this.magic ++
+        }
+      }
+    }
+
+    Vue.createApp(Clicker).mount('#clicker');
+  </script>
+</html>
