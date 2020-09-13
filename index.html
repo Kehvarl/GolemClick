@@ -9,6 +9,10 @@
     <div id="clicker">
       <p> Magic: {{ magic }} </p>
       <button v-on:click="magicClick">Raise Power</button>
+      <button v-if="ritualCraft" v-on:click="craftRitual">Ritual Circle</button>
+      <p> Clay: {{ clay }} </p>
+      <button v-on:click="clayClick">Dig Clay</button>
+      <button v-if="golemCraft" v-on:click="craftGolem">Craft Golem</button>
     </div>
 
   </body>
@@ -16,15 +20,53 @@
     const Clicker = {
       data() {
         return {
-          magic: 0
+          magic: 0,
+          clay: 0,
+          golemCraft: false,
+          ritualCraft: false,
+          golems: 0,
+          rituals: 0
         }
       },
       mounted() {
-        this.magic = 0
+        this.magic = 0;
+        this.clay = 0;
+        this.golems = 0;
+        setInterval(() => {
+          this.clay += this.golems;
+          this.magic += this.rituals;
+          this.craftCheck();
+        }, 1000)
       },
       methods: {
+        craftCheck() {
+          this.ritualCraft = (this.magic >= 10+(this.rituals*1.23));
+          this.golemCraft = (this.clay >= 10);
+        },
         magicClick() {
-          this.magic ++
+          this.magic ++;
+          this.craftCheck();
+        },
+        clayClick() {
+          this.clay ++;
+          this.craftCheck();
+        },
+        craftGolem() {
+          if (this.magic >= 10 && this.clay >= 10)
+          {
+            this.magic -= 10;
+            this.clay -= 10;
+            this.golems += 1;
+            this.craftCheck();
+          }
+        },
+        craftRitual() {
+          if (this.magic >= 10+(this.rituals*1.23))
+          {
+            this.magic -= Math.floor(10+(this.rituals*1.23));
+            this.rituals += 1;
+            this.craftCheck();
+          }
         }
       }
     }
