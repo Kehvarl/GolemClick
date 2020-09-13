@@ -9,6 +9,8 @@
     <div id="clicker">
       <p> Magic: {{ magic }} </p>
       <button v-on:click="magicClick">Raise Power</button>
+      <p> Clay: {{ clay }} </p>
+      <button v-on:click="clayClick">Dig Clay</button>
     </div>
 
   </body>
@@ -16,15 +18,21 @@
     const Clicker = {
       data() {
         return {
-          magic: 0
+          magic: 0,
+          clay: 0,
+
         }
       },
       mounted() {
-        this.magic = 0
+        this.magic = 0;
+        this.clay = 0;
       },
       methods: {
         magicClick() {
           this.magic ++
+        },
+        clayClick() {
+          this.clay ++
         }
       }
     }
