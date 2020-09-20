@@ -7,14 +7,27 @@
   </head>
   <body>
     <div id="clicker">
-      <magic-click title="Magic"></magic-click>
+      <p>Magic: {{ magic }}</p>
+      <magic-click title="Magic" @clicked="magic_click"></magic-click>
       <magic-click title="Clay"></magic-click>
     </div>
 
   </body>
   <script type="text/javascript">
-    const clicker = Vue.createApp({});
+    const clicker = Vue.createApp({
+      data(){
+        return {
+          magic: 0
+        }
+      },
+      methods: {
+        magic_click(){
+          this.magic ++;
+        }
+      }
+    });
     clicker.component('magic-click',{
+      emits: ['clicked'],
       props: {
         title: String
       },
@@ -31,6 +44,7 @@
       methods: {
         click(){
           this.clicks ++;
+          this.$emit('clicked');
         }
       }
     });
