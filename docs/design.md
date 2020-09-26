@@ -1,6 +1,7 @@
 # Golem click
 ---
 # Introduction
+You are a mage, out to make your fortune.  Of course, fortunes are best made the easy way, and what could be easier than letting golems do it for you?!  Gather raw materials and create golems to perform a variety of tasks that make you rich and famous!
 
 ---
 # Overall Design
@@ -16,12 +17,17 @@ Clicking
 - No other resources  
 
 ## Progression
-- Clay allows *production* of Ritual Items
-- Ritual Items allow *accumulation* of Magic
-- Magic and Clay allow *creation* of Clay Golem
-- Clay Golem can *mine* Clay and Stone
-
+|Object | Type | Uses | Produces|
+|-------|------|------|---------|
+|Clay Pit | Manual | None | 1 Clay |
+|Ritual | Manual | None | 1 Magic |
+|Craft Golem | Manual | 10 Clay, 10 Magic| 1 Clay Golem |
+|Clay Golem | Automatic | 1 Magic | 10 Clay |
 
 ---
-# Narrative
-You are a mage, out to make your fortune.  Of course, fortunes are best made the easy way, and what could be easier than letting golems do it for you?!  Gather raw materials and create golems to perform a variety of tasks that make you rich and famous!
+# System Design
+- *Main Clock* ticks 10 times per second
+- *Tick* - each *Automation* produces 1/10 prod value
+- *Tick* - update production options
+- *Click* - Produce full prod value.
+- *Produce* - *Use* resource.  *Add* output.
