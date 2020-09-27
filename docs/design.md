@@ -13,16 +13,16 @@ Riches
 Clicking
 
 ## Starting Conditions
-- One Clay source
+- One Clay Pit
 - No other resources  
 
 ## Progression
 |Object | Type | Uses | Produces|
 |-------|------|------|---------|
-|Clay Pit | Manual | None | 1 Clay |
-|Ritual | Manual | None | 1 Magic |
-|Craft Golem | Manual | 10 Clay, 10 Magic| 1 Clay Golem |
-|Clay Golem | Automatic | 1 Magic | 10 Clay |
+|Clay Pit | Resource | None | 1 Clay |
+|Ritual | Resource | None | 1 Magic |
+|Craft Golem | Craft | 10 Clay, 10 Magic| 1 Clay Golem |
+|Clay Golem | Auto | 1 Magic | 10 Clay |
 
 ---
 # System Design
@@ -31,3 +31,20 @@ Clicking
 - *Tick* - update production options
 - *Click* - Produce full prod value.
 - *Produce* - *Use* resource.  *Add* output.
+
+---
+# Scratch Pad
+Gather clay and Magic to make golems
+Golems gather clay
+Golems Forage for materials?
+What resources are used?
+ - clay
+ - magic
+ - wood
+ - stone
+ - iron
+ - bricks
+What else do you produce?
+ - magic
+ - Golems
+ - ???
