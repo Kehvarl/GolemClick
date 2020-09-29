@@ -46,5 +46,16 @@ What resources are used?
  - bricks
 What else do you produce?
  - magic
- - Golems 
+ - Golems
  - ???
+
+ - Player magic pool grows at n/second
+ - Research can unlock rituals to increase pool and regen
+ - Explore for relics
+ - Hunt for monsters
+ - Monsters can be slain or captured
+ - Captured monsters can be used in rituals
+ - Certain acts change your faction rating with groups
+ - While hunting/gathering, base can be raided
+ - Can reinforce/expand tower
+ - Larger towers increase magic recovery
