@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <script src="https://unpkg.com/vue@next"></script>
+    <title>GolemClick</title>
+  </head>
+  <body>
+    <div id="clicker">
+      <magic-display title="Magic" v-bind:value="magic"></magic-display>
+      <magic-display title="Clay" v-bind:value="clay"></magic-display>
+      <magic-click title="Magic" @clicked="magic_click"></magic-click>
+      <magic-click title="Clay" @clicked="clay_click"></magic-click>
+    </div>
+
+  </body>
+  <script type="text/javascript">
+    const clicker = Vue.createApp({
+      data(){
+        return {
+          magic: 0,
+          clay: 0
+        }
+      },
+      methods: {
+        magic_click(){
+          this.magic ++;
+        },
+        clay_click(){
+          this.clay ++;
+        }
+      }
+    });
+    clicker.component('magic-click',{
+      emits: ['clicked'],
+      props: {title: String},
+      template: `<p><button v-on:click="click"> {{ title }}</button></p>`,
+      methods: {
+        click(){
+          this.$emit('clicked');
+        }
+      }
+    });
+    clicker.component('magic-display', {
+      props: {title: String, value: Number},
+      template: `<p> {{title}}: {{ value }}</p>`
+    })
+
+    clicker.mount('#clicker');
+  </script>
+</html>
