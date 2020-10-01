@@ -59,3 +59,6 @@ What else do you produce?
  - While hunting/gathering, base can be raided
  - Can reinforce/expand tower
  - Larger towers increase magic recovery
+
+
+ - Player and interaction might need to be different object.
