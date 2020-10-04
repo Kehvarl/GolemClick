@@ -12,16 +12,22 @@
     const clicker = Vue.createApp({
       data(){
         return {
-          stats: {
-            atk: 5,
-            def: 5,
-            magic: 10,
-            max_magic: 10,
-            hp: 7,
-            max_hp: 10
-          },
-          inventory: {}
+          player: entity("Player", 5, 5, 10, 10),
+          entities: {}
         }
-      }});
+      }
+    });
+
+    var entity = function(type, atk, def, hp, magic){
+      return {
+        type: type,
+        atk: atk,
+        def: def,
+        hp: hp,
+        max_hp: hp,
+        magic: magic,
+        max_magic: magic
+      }
+    }
   </script>
 </html>
