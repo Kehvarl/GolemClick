@@ -6,9 +6,24 @@
     <title>GolemClick</title>
   </head>
   <body>
-
+    <div id="clicker">
+      <entity v-bind:value="player"></entity>
+    </div>
   </body>
   <script type="text/javascript">
+
+    function entity(type, atk, def, hp, magic){
+      return {
+        type: type,
+        atk: atk,
+        def: def,
+        hp: hp,
+        max_hp: hp,
+        magic: magic,
+        max_magic: magic
+      };
+    }
+
     const clicker = Vue.createApp({
       data(){
         return {
@@ -18,16 +33,19 @@
       }
     });
 
-    var entity = function(type, atk, def, hp, magic){
-      return {
-        type: type,
-        atk: atk,
-        def: def,
-        hp: hp,
-        max_hp: hp,
-        magic: magic,
-        max_magic: magic
-      }
-    }
+    clicker.component('entity',{
+      emits: ['clicked'],
+      props: {value: Object},
+      template: `
+      <div>
+      <div>{{ value.type }}</div>
+      <div>{{ value.atk }}</div>
+      <div>{{ value.def }}</div>
+      <div>{{ value.hp }} / {{ value.max_hp }}</div>
+      <div>{{ value.magic }}/ {{value.max_magic}}</div>
+      </div>`
+    });
+
+    clicker.mount('#clicker');
   </script>
 </html>
