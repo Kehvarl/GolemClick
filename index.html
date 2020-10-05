@@ -37,12 +37,12 @@
       emits: ['clicked'],
       props: {value: Object},
       template: `
-      <div>
-      <div>{{ value.type }}</div>
-      <div>{{ value.atk }}</div>
-      <div>{{ value.def }}</div>
-      <div>{{ value.hp }} / {{ value.max_hp }}</div>
-      <div>{{ value.magic }}/ {{value.max_magic}}</div>
+      <div class="entity">
+        <div>{{ value.type }}</div>
+        <div>{{ value.atk }}</div>
+        <div>{{ value.def }}</div>
+        <div>{{ value.hp }} / {{ value.max_hp }}</div>
+        <div>{{ value.magic }}/ {{value.max_magic}}</div>
       </div>`
     });
 
