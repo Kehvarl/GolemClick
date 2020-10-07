@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <script src="https://unpkg.com/vue@next"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Two+Tone" rel="stylesheet">
     <title>GolemClick</title>
   </head>
   <body>
@@ -38,11 +39,11 @@
       props: {value: Object},
       template: `
       <div class="entity">
-        <div class="stat type">{{ value.type }}</div>
-        <div class="stat atk">{{ value.atk }}</div>
-        <div class="stat def">{{ value.def }}</div>
-        <div class="stat hp">{{ value.hp }} / {{ value.max_hp }}</div>
-        <div class="stat magic">{{ value.magic }}/ {{value.max_magic}}</div>
+        <div><span class="material-icons-two-tone">accessibility</span>{{ value.type }}</div>
+        <div><span class="material-icons-two-tone">gavel</span>{{ value.atk }}</div>
+        <div><span class="material-icons-two-tone">security</span>{{ value.def }}</div>
+        <div><span class="material-icons-two-tone">favorite</span>{{ value.hp }} / {{ value.max_hp }}</div>
+        <div><span class="material-icons-two-tone">self_improvement</span>{{ value.magic }}/ {{value.max_magic}}</div>
       </div>`
     });
 
