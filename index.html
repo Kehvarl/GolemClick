@@ -38,11 +38,11 @@
       props: {value: Object},
       template: `
       <div class="entity">
-        <div>{{ value.type }}</div>
-        <div>{{ value.atk }}</div>
-        <div>{{ value.def }}</div>
-        <div>{{ value.hp }} / {{ value.max_hp }}</div>
-        <div>{{ value.magic }}/ {{value.max_magic}}</div>
+        <div class="stat type">{{ value.type }}</div>
+        <div class="stat atk">{{ value.atk }}</div>
+        <div class="stat def">{{ value.def }}</div>
+        <div class="stat hp">{{ value.hp }} / {{ value.max_hp }}</div>
+        <div class="stat magic">{{ value.magic }}/ {{value.max_magic}}</div>
       </div>`
     });
 
