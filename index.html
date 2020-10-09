@@ -65,11 +65,11 @@
       props: {value: Object},
       template: `
       <div class="entity">
-        <div><span class="material-icons-two-tone">accessibility</span> {{ value.type }}</div>
-        <div v-if="value.atk > 0"><span class="material-icons-two-tone">gavel</span> {{ value.atk }}</div>
-        <div v-if="value.def > 0"><span class="material-icons-two-tone">security</span> {{ value.def }}</div>
-        <div><span class="material-icons-two-tone">favorite</span> {{ value.hp }} / {{ value.max_hp }}</div>
-        <div v-if="value.max_magic > 0"><span class="material-icons-two-tone">self_improvement</span> {{ value.magic }}/ {{value.max_magic}}</div>
+        <div title="Type"><span class="material-icons-two-tone">accessibility</span> {{ value.type }}</div>
+        <div v-if="value.atk > 0" title="Attack"><span class="material-icons-two-tone">gavel</span> {{ value.atk }}</div>
+        <div v-if="value.def > 0" title="Defense"><span class="material-icons-two-tone">security</span> {{ value.def }}</div>
+        <div title="HP"><span class="material-icons-two-tone">favorite</span> {{ value.hp }} / {{ value.max_hp }}</div>
+        <div v-if="value.max_magic > 0" title="Magic"><span class="material-icons-two-tone">self_improvement</span> {{ value.magic }}/ {{value.max_magic}}</div>
       </div>`
     });
 
