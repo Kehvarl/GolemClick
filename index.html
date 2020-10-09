@@ -40,11 +40,11 @@
         return {
           player: entity("Player", 5, 5, 10, 10),
           entities: [
-            entity("Kobold", 5, 5, 10, 10),
-            entity("Goblin", 5, 5, 10, 10),
-            entity("Human", 5, 5, 10, 10),
-            entity("Orc", 5, 5, 10, 10),
-            entity("Ogre", 5, 5, 10, 10)
+            entity("Kobold", 1, 3, 5, 0),
+            entity("Goblin", 2, 2, 7, 0),
+            entity("Human", 5, 5, 10, 0),
+            entity("Orc", 6, 5, 12, 0),
+            entity("Ogre", 7, 5, 15, 0)
           ]
         }
       }
@@ -66,10 +66,10 @@
       template: `
       <div class="entity">
         <div><span class="material-icons-two-tone">accessibility</span> {{ value.type }}</div>
-        <div><span class="material-icons-two-tone">gavel</span> {{ value.atk }}</div>
-        <div><span class="material-icons-two-tone">security</span> {{ value.def }}</div>
+        <div v-if="value.atk > 0"><span class="material-icons-two-tone">gavel</span> {{ value.atk }}</div>
+        <div v-if="value.def > 0"><span class="material-icons-two-tone">security</span> {{ value.def }}</div>
         <div><span class="material-icons-two-tone">favorite</span> {{ value.hp }} / {{ value.max_hp }}</div>
-        <div><span class="material-icons-two-tone">self_improvement</span> {{ value.magic }}/ {{value.max_magic}}</div>
+        <div v-if="value.max_magic > 0"><span class="material-icons-two-tone">self_improvement</span> {{ value.magic }}/ {{value.max_magic}}</div>
       </div>`
     });
 
