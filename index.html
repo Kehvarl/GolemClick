@@ -5,10 +5,17 @@
     <script src="https://unpkg.com/vue@next"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Two+Tone" rel="stylesheet">
     <title>GolemClick</title>
+    <style>
+      .entity{
+        float:left;
+        margin-left: 1em;
+      }
+    </style>
   </head>
   <body>
     <div id="clicker">
       <entity v-bind:value="player"></entity>
+      <monsters v-bind:monsters="entities"></monsters>
     </div>
   </body>
   <script type="text/javascript">
@@ -29,9 +36,25 @@
       data(){
         return {
           player: entity("Player", 5, 5, 10, 10),
-          entities: {}
+          entities: [
+            entity("Kobold", 5, 5, 10, 10),
+            entity("Goblin", 5, 5, 10, 10),
+            entity("Human", 5, 5, 10, 10),
+            entity("Orc", 5, 5, 10, 10),
+            entity("Ogre", 5, 5, 10, 10)
+          ]
         }
       }
+    });
+
+    clicker.component('monsters',{
+      props: {monsters: Array},
+      template:`
+        <div class="monsters">
+          <template v-for="monster in monsters">
+            <entity v-bind:value="monster"></entity>
+          </template>
+        </div>`
     });
 
     clicker.component('entity',{
