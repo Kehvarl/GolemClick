@@ -63,6 +63,12 @@
     clicker.component('entity',{
       emits: ['clicked'],
       props: {value: Object},
+      methods: {
+        click(){
+          value.hp -= 1;
+          this.$emit('clicked');
+        }
+      },
       template: `
       <div class="entity">
         <div title="Type"><span class="material-icons-two-tone">accessibility</span> {{ value.type }}</div>
