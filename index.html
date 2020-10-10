@@ -52,26 +52,33 @@
 
     clicker.component('monsters',{
       props: {monsters: Array},
+      methods: {
+        died(index){
+          this.monsters[index] = null
+        }
+      },
       template:`
         <div class="monsters">
-          <template v-for="monster in monsters">
-            <entity v-bind:value="monster"></entity>
+          <template v-for="(monster, index) in monsters">
+            <entity v-model:value="monster" v-bind:index="index" @died="died(index)"></entity>
           </template>
         </div>`
     });
 
     clicker.component('entity',{
-      emits: ['clicked'],
-      props: {value: Object},
+      emits: ['died'],
+      props: {value: Object, index: Number},
       methods: {
         click(){
-          value.hp -= 1;
-          this.$emit('clicked');
+          this.value.hp -= 1;
+          if (this.value.hp <= 0) {
+            this.$emit('died', this.index);
+          }
         }
       },
       template: `
       <div class="entity">
-        <div title="Type"><span class="material-icons-two-tone">accessibility</span> {{ value.type }}</div>
+        <div title="Type"><span class="material-icons-two-tone">accessibility</span> <button v-on:click="click">{{ value.type }}</button></div>
         <div v-if="value.atk > 0" title="Attack"><span class="material-icons-two-tone">gavel</span> {{ value.atk }}</div>
         <div v-if="value.def > 0" title="Defense"><span class="material-icons-two-tone">security</span> {{ value.def }}</div>
         <div title="HP"><span class="material-icons-two-tone">favorite</span> {{ value.hp }} / {{ value.max_hp }}</div>
