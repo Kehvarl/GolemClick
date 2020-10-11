@@ -18,7 +18,7 @@
   <body>
     <div id="clicker">
       <entity v-bind:value="player"></entity>
-      <monsters v-bind:monsters="entities"></monsters>
+      <monsters v-model:monsters="entities" @died="died(index)"></monsters>
     </div>
   </body>
   <script type="text/javascript">
@@ -47,14 +47,22 @@
             entity("Ogre", 7, 5, 15, 0)
           ]
         }
+      },
+      methods: {
+        died(){
+          this.entities = this.entities.filter(function(el) {
+            return el.hp > 0;
+          })
+        }
       }
     });
 
     clicker.component('monsters',{
       props: {monsters: Array},
+      emits: ['died'],
       methods: {
-        died(index){
-          this.monsters[index] = null
+        died(){
+          this.$emit('died');
         }
       },
       template:`
@@ -77,8 +85,8 @@
         }
       },
       template: `
-      <div class="entity">
-        <div title="Type"><span class="material-icons-two-tone">accessibility</span> <button v-on:click="click">{{ value.type }}</button></div>
+      <div class="entity" v-on:click="click">
+        <div title="Type"><span class="material-icons-two-tone">accessibility</span> {{ value.type }}</div>
         <div v-if="value.atk > 0" title="Attack"><span class="material-icons-two-tone">gavel</span> {{ value.atk }}</div>
         <div v-if="value.def > 0" title="Defense"><span class="material-icons-two-tone">security</span> {{ value.def }}</div>
         <div title="HP"><span class="material-icons-two-tone">favorite</span> {{ value.hp }} / {{ value.max_hp }}</div>
