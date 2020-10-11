@@ -63,8 +63,8 @@
       emits: ['died'],
       methods: {
         clicked(index){
-          this.mosters[index]value.hp -= 1;
-          if (this.value.hp <= 0) {
+          this.monsters[index].hp -= 1;
+          if (this.monsters[index].hp <= 0) {
             this.$emit('died', this.index);
           }
         }
