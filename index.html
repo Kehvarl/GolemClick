@@ -17,8 +17,8 @@
   </head>
   <body>
     <div id="clicker">
-      <entity v-bind:value="player"></entity>
-      <monsters v-model:monsters="entities" @died="died(index)"></monsters>
+      <entity v-model:value="player" @died="player_died()"></entity>
+      <monsters v-model:monsters="entities" @died="monster_died()"></monsters>
     </div>
   </body>
   <script type="text/javascript">
@@ -49,7 +49,8 @@
         }
       },
       methods: {
-        died(){
+        player_died() {},
+        monster_died(){
           this.entities = this.entities.filter(function(el) {
             return el.hp > 0;
           })
