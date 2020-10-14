@@ -17,8 +17,8 @@
   </head>
   <body>
     <div id="clicker">
-      <entity v-model:value="player" @clicked="player_click()"></entity>
-      <monsters v-model:monsters="entities" @died="monster_died()"></monsters>
+      <entity v-model:value="player" @clicked="player_click"></entity>
+      <monsters v-model:monsters="entities" @clicked="monster_click"></monsters>
     </div>
   </body>
   <script type="text/javascript">
@@ -48,10 +48,14 @@
           ]
         }
       },
-      
+
       methods: {
-        player_died() {},
-        monster_died(){
+        player_click() {
+          this.player.hp = Math.min(this.player.hp + 1, this.player.max_hp);
+        },
+        monster_click(index){
+          this.player.hp -= 1;
+          this.entities[index].hp -= 1;
           this.entities = this.entities.filter(function(el) {
             return el.hp > 0;
           })
@@ -61,13 +65,10 @@
 
     clicker.component('monsters',{
       props: {monsters: Array},
-      emits: ['died'],
+      emits: ['clicked'],
       methods: {
         clicked(index){
-          this.monsters[index].hp -= 1;
-          if (this.monsters[index].hp <= 0) {
-            this.$emit('died', this.index);
-          }
+            this.$emit('clicked', index);
         }
       },
       template:`
