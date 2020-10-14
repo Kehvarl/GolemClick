@@ -9,6 +9,7 @@
       .entity{
         float:left;
         margin-left: 1em;
+        margin-bottom: 1em;
       }
       .monsters{
         clear:both;
@@ -18,6 +19,7 @@
   <body>
     <div id="clicker">
       <entity v-model:value="player" @clicked="player_click"></entity>
+
       <monsters v-model:monsters="entities" @clicked="monster_click"></monsters>
     </div>
   </body>
@@ -53,9 +55,14 @@
         player_click() {
           this.player.hp = Math.min(this.player.hp + 1, this.player.max_hp);
         },
+        combat(m){
+          m_dmg = Math.max(this.player.atk - this.entities[m].def, 0);
+          p_dmg = Math.max(this.entities[m].atk - this.player.def, 0);
+          this.entities[m].hp -= m_dmg;
+          this.player.hp -= p_dmg;
+        },
         monster_click(index){
-          this.player.hp -= 1;
-          this.entities[index].hp -= 1;
+          this.combat(index);
           this.entities = this.entities.filter(function(el) {
             return el.hp > 0;
           })
