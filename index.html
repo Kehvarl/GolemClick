@@ -20,12 +20,12 @@
     <div id="clicker">
       <entity v-model:value="player" @clicked="player_click"></entity>
 
-      <monsters v-model:monsters="entities" @clicked="monster_click"></monsters>
+      <monsters v-model:monsters="monsters" @clicked="monster_click"></monsters>
     </div>
   </body>
   <script type="text/javascript">
 
-    function entity(type, atk, def, hp, magic){
+    function entity(type, atk, def, hp, magic, xp, xp_value){
       return {
         type: type,
         atk: atk,
@@ -33,20 +33,22 @@
         hp: hp,
         max_hp: hp,
         magic: magic,
-        max_magic: magic
+        max_magic: magic,
+        xp: xp,
+        xp_value: xp_value
       };
     }
 
     const clicker = Vue.createApp({
       data(){
         return {
-          player: entity("Player", 5, 5, 10, 10),
-          entities: [
-            entity("Kobold", 1, 3, 5, 0),
-            entity("Goblin", 2, 2, 7, 0),
-            entity("Human", 5, 5, 10, 0),
-            entity("Orc", 6, 5, 12, 0),
-            entity("Ogre", 7, 5, 15, 0)
+          player: entity("Player", 5, 5, 10, 10, 0, 0),
+          monsters: [
+            entity("Kobold", 1, 3, 5, 0, 0, 6),
+            entity("Goblin", 2, 2, 7, 0, 0, 7),
+            entity("Human", 5, 5, 10, 0, 0, 8),
+            entity("Orc", 6, 5, 12, 0, 0, 9),
+            entity("Ogre", 7, 5, 15, 0, 0, 10)
           ]
         }
       },
@@ -56,16 +58,22 @@
           this.player.hp = Math.min(this.player.hp + 1, this.player.max_hp);
         },
         combat(m){
-          m_dmg = Math.max(this.player.atk - this.entities[m].def, 0);
-          p_dmg = Math.max(this.entities[m].atk - this.player.def, 0);
-          this.entities[m].hp -= m_dmg;
+          m_dmg = Math.max(this.player.atk - this.monsters[m].def, 0);
+          p_dmg = Math.max(this.monsters[m].atk - this.player.def, 0);
+          this.monsters[m].hp -= m_dmg;
           this.player.hp -= p_dmg;
+          if (this.monsters[m].hp <= 0){
+            this.player.xp += this.monsters[m].xp_value;
+          }
+
         },
         monster_click(index){
-          this.combat(index);
-          this.entities = this.entities.filter(function(el) {
-            return el.hp > 0;
-          })
+          if (this.monsters[index].hp > 0){
+            this.combat(index);
+            this.monsters = this.monsters.filter(function(el) {
+              return el.hp > 0;
+            });
+          }
         }
       }
     });
@@ -96,7 +104,7 @@
       },
       template: `
       <div class="entity" v-on:click="click">
-        <div title="Type"><span class="material-icons-two-tone">accessibility</span> {{ value.type }}</div>
+        <div title="Type"><span class="material-icons-two-tone">accessibility</span> {{ value.type }} <span v-if="value.xp > 0">XP: {{ value.xp }}</span></div>
         <div v-if="value.atk > 0" title="Attack"><span class="material-icons-two-tone">gavel</span> {{ value.atk }}</div>
         <div v-if="value.def > 0" title="Defense"><span class="material-icons-two-tone">security</span> {{ value.def }}</div>
         <div title="HP"><span class="material-icons-two-tone">favorite</span> {{ value.hp }} / {{ value.max_hp }}</div>
