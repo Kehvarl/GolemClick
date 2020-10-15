@@ -11,16 +11,16 @@
         margin-left: 1em;
         margin-bottom: 1em;
       }
-      .monsters{
+      .enemies{
         clear:both;
       }
     </style>
   </head>
   <body>
     <div id="clicker">
-      <entity v-model:value="player" @clicked="player_click"></entity>
+      <player v-model:value="player" @clicked="player_click"></player>
 
-      <monsters v-model:monsters="monsters" @clicked="monster_click"></monsters>
+      <enemies v-model:enemies="enemies" @clicked="enemy_click"></enemies>
     </div>
   </body>
   <script type="text/javascript">
@@ -43,7 +43,7 @@
       data(){
         return {
           player: entity("Player", 5, 5, 10, 10, 0, 0),
-          monsters: [
+          enemies: [
             entity("Kobold", 1, 3, 5, 0, 0, 6),
             entity("Goblin", 2, 2, 7, 0, 0, 7),
             entity("Human", 5, 5, 10, 0, 0, 8),
@@ -58,19 +58,19 @@
           this.player.hp = Math.min(this.player.hp + 1, this.player.max_hp);
         },
         combat(m){
-          m_dmg = Math.max(this.player.atk - this.monsters[m].def, 0);
-          p_dmg = Math.max(this.monsters[m].atk - this.player.def, 0);
-          this.monsters[m].hp -= m_dmg;
+          m_dmg = Math.max(this.player.atk - this.enemies[m].def, 0);
+          p_dmg = Math.max(this.enemies[m].atk - this.player.def, 0);
+          this.enemies[m].hp -= m_dmg;
           this.player.hp -= p_dmg;
-          if (this.monsters[m].hp <= 0){
-            this.player.xp += this.monsters[m].xp_value;
+          if (this.enemies[m].hp <= 0){
+            this.player.xp += this.enemies[m].xp_value;
           }
 
         },
-        monster_click(index){
-          if (this.monsters[index].hp > 0){
+        enemy_click(index){
+          if (this.enemies[index].hp > 0){
             this.combat(index);
-            this.monsters = this.monsters.filter(function(el) {
+            this.enemies = this.enemies.filter(function(el) {
               return el.hp > 0;
             });
           }
@@ -78,8 +78,8 @@
       }
     });
 
-    clicker.component('monsters',{
-      props: {monsters: Array},
+    clicker.component('enemies',{
+      props: {enemies: Array},
       emits: ['clicked'],
       methods: {
         clicked(index){
@@ -87,11 +87,12 @@
         }
       },
       template:`
-        <div class="monsters">
-          <template v-for="(monster, index) in monsters">
-            <entity v-model:value="monster" @clicked="clicked(index)"></entity>
+        <fieldset class="enemies">
+          <legend>Enemies</legend>
+          <template v-for="(m, index) in enemies">
+            <enemy v-model:value="m" @clicked="clicked(index)"></enemy>
           </template>
-        </div>`
+        </fieldset>`
     });
 
     clicker.component('entity',{
@@ -109,6 +110,39 @@
         <div v-if="value.def > 0" title="Defense"><span class="material-icons-two-tone">security</span> {{ value.def }}</div>
         <div title="HP"><span class="material-icons-two-tone">favorite</span> {{ value.hp }} / {{ value.max_hp }}</div>
         <div v-if="value.max_magic > 0" title="Magic"><span class="material-icons-two-tone">self_improvement</span> {{ value.magic }}/ {{value.max_magic}}</div>
+      </div>`
+    });
+
+    clicker.component('player',{
+      emits: ['clicked'],
+      props: {value: Object, index: Number},
+      methods: {
+        click(){
+          this.$emit('clicked');
+        }
+      },
+      template: `
+      <div class="entity player" v-on:click="click">
+        <div title="Type"><span class="material-icons-two-tone">accessibility</span> {{ value.type }} <span v-if="value.xp > 0">XP: {{ value.xp }}</span></div>
+        <div v-if="value.atk > 0" title="Attack"><span class="material-icons-two-tone">gavel</span> {{ value.atk }}</div>
+        <div v-if="value.def > 0" title="Defense"><span class="material-icons-two-tone">security</span> {{ value.def }}</div>
+        <div title="HP"><span class="material-icons-two-tone">favorite</span> {{ value.hp }} / {{ value.max_hp }}</div>
+        <div v-if="value.max_magic > 0" title="Magic"><span class="material-icons-two-tone">self_improvement</span> {{ value.magic }}/ {{value.max_magic}}</div>
+      </div>`
+    });
+
+    clicker.component('enemy',{
+      emits: ['clicked'],
+      props: {value: Object, index: Number},
+      methods: {
+        click(){
+          this.$emit('clicked');
+        }
+      },
+      template: `
+      <div class="entity enemy" v-on:click="click">
+        <div title="Type"><span class="material-icons-two-tone">accessibility</span> {{ value.type }}</div>
+        <div title="HP"><span class="material-icons-two-tone">favorite</span> {{ value.hp }} / {{ value.max_hp }}</div>
       </div>`
     });
 
