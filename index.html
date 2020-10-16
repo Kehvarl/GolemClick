@@ -11,6 +11,13 @@
         margin-left: 1em;
         margin-bottom: 1em;
       }
+      .player_container{
+        clear:both;
+      }
+      .action_container{
+        float: left;
+        margin-left: 1em;
+      }
       .enemies{
         clear:both;
       }
@@ -18,8 +25,13 @@
   </head>
   <body>
     <div id="clicker">
-      <player v-model:value="player" @clicked="player_click"></player>
-
+      <fieldset id="player_container">
+        <legend>Me</legend>
+        <player v-model:value="player" @clicked="player_click"></player>
+        <div class="action_container">
+          <action name="Heal" icon="favorite" @clicked="heal_click"></action>
+        </div>
+      </fieldset>
       <enemies v-model:enemies="enemies" @clicked="enemy_click"></enemies>
     </div>
   </body>
@@ -76,6 +88,21 @@
           }
         }
       }
+    });
+
+    clicker.component('action',{
+      props: {name: String, icon: String},
+      emits: ['clicked'],
+      methods: {
+        clicked(){
+          this.$emit('clicked');
+        }
+      },
+      template:`
+        <div class="action" v-on:click="clicked">
+          <span class="material-icons-two-tone">{{ icon }}</span> {{ name }}
+        </div>
+      `
     });
 
     clicker.component('enemies',{
