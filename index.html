@@ -11,6 +11,12 @@
         margin-left: 1em;
         margin-bottom: 1em;
       }
+      .player_container{
+        clear:both;
+      }
+      .control{
+        float: left;
+      }
       .enemies{
         clear:both;
       }
@@ -18,8 +24,10 @@
   </head>
   <body>
     <div id="clicker">
-      <player v-model:value="player" @clicked="player_click"></player>
-
+      <fieldset id="player_container">
+        <legend>Me</legend>
+        <player v-model:value="player" @clicked="player_click"></player>
+      </fieldset>
       <enemies v-model:enemies="enemies" @clicked="enemy_click"></enemies>
     </div>
   </body>
