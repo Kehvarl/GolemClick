@@ -57,6 +57,7 @@
     const clicker = Vue.createApp({
       data(){
         return {
+          turn: 0,
           player: entity("Player", 5, 5, 10, 10, 0, 0),
           enemies: [
             entity("Kobold", 1, 3, 5, 0, 0, 6),
