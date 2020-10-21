@@ -40,7 +40,7 @@
   </body>
   <script type="text/javascript">
 
-    function entity(type, atk, def, hp, magic, xp, xp_value){
+    function entity(type, atk, def, hp, magic, energy_gain, xp, xp_value){
       return {
         type: type,
         atk: atk,
@@ -49,6 +49,8 @@
         max_hp: hp,
         magic: magic,
         max_magic: magic,
+        energy: 0,
+        energy_gain: energy_gain,
         xp: xp,
         xp_value: xp_value
       };
@@ -58,16 +60,16 @@
       data(){
         return {
           turn: 0,
-          player: entity("Player", 5, 5, 10, 10, 0, 0),
+          player: entity("Player", 5, 5, 10, 10, 1, 0, 0),
           allies: [
-            entity("Kobold", 1, 3, 5, 0, 0, 6)
+            entity("Kobold", 1, 3, 5, 0, 1, 0, 6)
           ],
           enemies: [
-            entity("Kobold", 1, 3, 5, 0, 0, 6),
-            entity("Goblin", 2, 2, 7, 0, 0, 7),
-            entity("Human", 5, 5, 10, 0, 0, 8),
-            entity("Orc", 6, 5, 12, 0, 0, 9),
-            entity("Ogre", 7, 5, 15, 0, 0, 10)
+            entity("Kobold", 1, 3, 5, 0, 1/3, 0, 6),
+            entity("Goblin", 2, 2, 7, 0, 1/2, 7),
+            entity("Human", 5, 5, 10, 0, 1, 8),
+            entity("Orc", 6, 5, 12, 0, 1, 9),
+            entity("Ogre", 7, 5, 15, 0, 1, 10)
           ]
         }
       },
