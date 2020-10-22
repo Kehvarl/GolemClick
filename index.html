@@ -76,7 +76,9 @@
 
       methods: {
         ai_turn(){
-          return;
+          this.enemies.forEach(function(e){
+            console.log(e.type);
+          });
         },
         player_click() {
           this.player.hp = Math.min(this.player.hp + 1, this.player.max_hp);
