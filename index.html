@@ -34,6 +34,9 @@
           <action name="Attack Boost" icon="gavel" @clicked="atk_click"></action>
           <action name="Defense Boost" icon="security" @clicked="def_click"></action>
         </div>
+        <div class="action_container">
+          <action name="End Turn" icon="exit" @clicked="end_turn"></action>
+        </div>
       </fieldset>
       <enemies v-model:enemies="enemies" @clicked="enemy_click"></enemies>
     </div>
@@ -59,7 +62,7 @@
     const clicker = Vue.createApp({
       data(){
         return {
-          turn: 0,
+          turn: 1,
           player: entity("Player", 5, 5, 10, 10, 1, 0, 0),
           allies: [
             entity("Kobold", 1, 3, 5, 0, 1, 0, 6)
@@ -73,12 +76,19 @@
           ]
         }
       },
-
+      mounted() {
+        setInterval(() => {
+          this.ai_turn()
+        }, 1000)
+      },
       methods: {
         ai_turn(){
-          this.enemies.forEach(function(e){
-            console.log(e.type);
-          });
+          if (this.turn == 1){
+            this.enemies.forEach(function(e){
+              console.log(e.type);
+            });
+            this.turn = 0;
+          }
         },
         player_click() {
           this.player.hp = Math.min(this.player.hp + 1, this.player.max_hp);
@@ -102,6 +112,9 @@
             this.player.def += 3;
             this.player.magic -= 9;
           }
+        },
+        end_turn(){
+          this.turn = 1;
         },
         combat(m){
           m_dmg = Math.max(this.player.atk - this.enemies[m].def, 0);
